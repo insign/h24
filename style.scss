@@ -1,0 +1,322 @@
+// ========================================
+// Variáveis
+// ========================================
+
+// Cores
+$color-blue:        #0090FF;
+$color-orange:      #FF7A00;
+$color-black:       #000;
+$color-white:       #FFF;
+$color-dark-bg:     #121212;
+$color-dark-text:   #FFF;
+$color-footer-text: #333;
+
+// Breakpoints
+$breakpoint-large:  1025px;
+$breakpoint-medium: 769px;
+$breakpoint-small:  768px;
+
+// Fonte
+$font-family:       'Playpen Sans', sans-serif;
+
+// ========================================
+// Mixins
+// ========================================
+
+/**
+ * Mixin para media queries
+ * @param {String} $breakpoint - Nome do breakpoint (large, medium, small)
+ */
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == large {
+    @media (min-width: $breakpoint-large) {
+      @content;
+    }
+  } @else if $breakpoint == medium {
+    @media (min-width: $breakpoint-medium) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $breakpoint == small {
+    @media (max-width: $breakpoint-small) {
+      @content;
+    }
+  }
+}
+
+// ========================================
+// Reset Básico
+// ========================================
+
+* {
+  box-sizing: border-box;
+}
+
+// ========================================
+// Estilos Globais
+// ========================================
+
+a {
+  color: $color-blue;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-orange;
+  }
+}
+
+h1 {
+  margin-bottom: 2rem;
+  font-size:     2rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size:     22px;
+}
+
+h3 {
+  margin-bottom: 1.5rem;
+  font-size:     20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+body {
+  font-family:         $font-family;
+  font-optical-sizing: auto;
+  font-weight:         300;
+  font-style:          normal;
+  font-size: 1.2rem;
+  background-color:    $color-white;
+  color:               $color-black;
+  transition:          background-color 0.3s, color 0.3s;
+
+  @include respond-to(large) {
+    max-width: 900px;
+    margin:    0 auto;
+  }
+
+  @include respond-to(medium) {
+    max-width: 800px;
+    margin:    0 auto;
+  }
+}
+
+// ========================================
+// Header
+// ========================================
+
+header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  padding:         20px;
+
+  .site-title {
+    a {
+      text-decoration: none;
+      font-size:       24px;
+      color:           $color-black;
+      font-weight:     bold;
+    }
+  }
+
+  @include respond-to(small) {
+    flex-direction: column;
+    align-items:    flex-start;
+  }
+}
+
+// ========================================
+// Navegação (Nav)
+// ========================================
+
+nav {
+  ul {
+    list-style: none;
+    display:    flex;
+
+    li {
+      margin-left: 20px;
+
+      a {
+        text-decoration: underline;
+        font-size:       16px;
+      }
+
+      @include respond-to(small) {
+        margin-left:   0;
+        margin-bottom: 10px;
+      }
+    }
+
+    @include respond-to(small) {
+      flex-direction: column;
+    }
+  }
+
+  @include respond-to(small) {
+    margin-top: 10px;
+  }
+}
+
+// ========================================
+// Toggle de Tema
+// ========================================
+
+.theme-toggle {
+  cursor:           pointer;
+  border:           none;
+  background-color: transparent;
+
+  img {
+    width:       24px;
+    height:      24px;
+    padding-top: 6px;
+  }
+
+  .light-button {
+    display: none;
+  }
+}
+
+// ========================================
+// Conteúdo
+// ========================================
+
+.content {
+  padding: 20px;
+}
+
+.post {
+  margin-bottom: 30px;
+
+  p {
+    margin-bottom: 1.5rem;
+    line-height: 2.5rem;
+  }
+}
+
+// ========================================
+// Geral
+// ========================================
+
+.date {
+  color: lighten($color-black, 50%);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+
+  .page-numbers {
+    margin: 0 10px;
+  }
+
+  .current {
+    font-weight: bold;
+  }
+}
+
+
+// ========================================
+// Footer
+// ========================================
+
+footer {
+  padding:    20px;
+  text-align: center;
+
+  .footer-menu {
+    list-style:      none;
+    display:         flex;
+    justify-content: center;
+    margin-bottom:   10px;
+
+    li {
+      margin: 0 15px;
+
+      a {
+        text-decoration: none;
+        color:           $color-footer-text;
+        font-size:       14px;
+      }
+
+      @include respond-to(small) {
+        margin: 10px 0;
+      }
+    }
+
+    @include respond-to(small) {
+      flex-direction: column;
+    }
+  }
+}
+
+// ========================================
+// Modo Escuro (Dark Mode)
+// ========================================
+
+.dark-mode {
+  background-color: $color-dark-bg;
+  color:            $color-dark-text;
+
+  .site-title {
+    a {
+      color: $color-dark-text;
+    }
+  }
+
+  .theme-toggle {
+    .light-button {
+      display: inline;
+      color:   $color-dark-text;
+    }
+
+    .dark-button {
+      display: none;
+    }
+  }
+}
+
+// ========================================
+// Responsividade Adicional
+// ========================================
+
+@include respond-to(small) {
+  header {
+    flex-direction: column;
+    align-items:    flex-start;
+  }
+
+  nav {
+    margin-top: 10px;
+
+    ul {
+      flex-direction: column;
+
+      li {
+        margin-left:   0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .toggle-button {
+    margin-left: 0;
+    margin-top:  10px;
+  }
+
+  footer {
+    .footer-menu {
+      flex-direction: column;
+
+      li {
+        margin: 10px 0;
+      }
+    }
+  }
+}
