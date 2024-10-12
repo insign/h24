@@ -41,8 +41,8 @@ function h24_theme_update($transient) {
   $theme           = wp_get_theme($theme_slug);
   $current_version = $theme->get('Version');
 
-  // Monta a URL para a API do GitHub que retorna a última release
-  $url  = "https://api.github.com/repos/{$user}/{$repo}/releases/latest";
+  // Monta a URL para a API do GitHub que retorna as tags do repositório
+  $url  = "https://api.github.com/repos/{$user}/{$repo}/tags";
   $args = [
     'headers' => [
       'Accept'     => 'application/vnd.github.v3+json',
@@ -60,28 +60,36 @@ function h24_theme_update($transient) {
   }
 
   // Decodifica a resposta JSON
-  $release = json_decode(wp_remote_retrieve_body($response));
+  $tags = json_decode(wp_remote_retrieve_body($response));
 
-  // Verifica se a release foi obtida corretamente
-  if (!$release || empty($release->tag_name)) {
-    // Não foi possível obter as informações da release
+  // Verifica se as tags foram obtidas corretamente
+  if (!$tags || !is_array($tags)) {
+    // Não foi possível obter as informações das tags
     return $transient;
   }
 
-  // Obtém a versão da release remota
-  $remote_version = $release->tag_name;
+  // Extrai os nomes das tags
+  $tag_names = array_map(function($tag) {
+    return $tag->name;
+  }, $tags);
+
+  // Ordena as tags usando version_compare
+  usort($tag_names, 'version_compare');
+
+  // Obtém a última tag (maior versão)
+  $latest_tag = end($tag_names);
 
   // Compara a versão remota com a versão atual do tema
-  if (version_compare($remote_version, $current_version, '>')) {
+  if (version_compare($latest_tag, $current_version, '>')) {
     // Há uma atualização disponível
 
-    // Usa o link padrão para baixar o código-fonte da tag
-    $package = "https://github.com/{$user}/{$repo}/archive/refs/tags/{$release->tag_name}.zip";
+    // Monta o URL para o arquivo zip da tag
+    $package = "https://github.com/{$user}/{$repo}/archive/refs/tags/{$latest_tag}.zip";
 
     // Define os dados da atualização no objeto $transient
     $transient->response[$theme_slug] = [
       'theme'       => $theme_slug,
-      'new_version' => $remote_version,
+      'new_version' => $latest_tag,
       'url'         => "https://github.com/{$user}/{$repo}",
       'package'     => $package,
     ];
