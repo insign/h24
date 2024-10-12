@@ -7,6 +7,15 @@ function h24_setup() {
   // Suporte a imagens destacadas em posts e páginas
   add_theme_support('post-thumbnails');
 
+  // Suporte a marcação HTML5
+  add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
+
+  // Suporte a links automáticos de feed
+  add_theme_support('automatic-feed-links');
+
+  // Carrega o arquivo de texto para tradução
+  load_theme_textdomain('h24', get_template_directory() . '/languages');
+
   // Registro de menus de navegação
   register_nav_menus([
                        'primary' => __('Menu Principal', 'h24'),
@@ -18,10 +27,10 @@ add_action('after_setup_theme', 'h24_setup');
 // Função para enfileirar estilos e scripts
 function h24_scripts() {
   // Enfileirar o stylesheet principal do tema
-  wp_enqueue_style('h24-style', get_stylesheet_uri());
+  wp_enqueue_style('h24-style', get_stylesheet_uri(), [], wp_get_theme()->get('Version'));
 
   // Enfileirar o script de alternância de tema
-  wp_enqueue_script('h24-scripts', get_template_directory_uri() . '/js/scripts.js', [], '1.0', true);
+  wp_enqueue_script('h24-scripts', get_template_directory_uri() . '/js/scripts.js', [], wp_get_theme()->get('Version'), true);
 }
 add_action('wp_enqueue_scripts', 'h24_scripts');
 
@@ -102,7 +111,7 @@ add_filter('pre_set_site_transient_update_themes', 'h24_theme_update');
 
 // Função para limpar o cache de atualização do tema após atualização
 function h24_clear_theme_update_cache($upgrader_object, $options) {
-  if ($options['action'] == 'update' && $options['type'] == 'theme') {
+  if ($options['action'] === 'update' && $options['type'] === 'theme') {
     // Limpa o cache de atualização de temas
     delete_site_transient('update_themes');
   }
