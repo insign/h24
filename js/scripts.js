@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Função para aplicar o tema
     function applyTheme(theme) {
-        if (theme === 'dark') {
-            body.classList.add('dark-mode');
+        if (theme === 'light') {
+            body.classList.add('light-mode');
         } else {
-            body.classList.remove('dark-mode');
+            body.classList.remove('light-mode');
         }
     }
 
@@ -17,18 +17,18 @@ document.addEventListener('DOMContentLoaded', function () {
         applyTheme(savedTheme);
     } else {
         // Detectar preferência do sistema
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark ? 'dark' : 'light');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        applyTheme(prefersDark ? 'light' : 'dark');
     }
 
     // Evento de clique no botão de alternância
     toggleButton.addEventListener('click', function () {
-        if (body.classList.contains('dark-mode')) {
-            applyTheme('light');
-            localStorage.setItem('theme', 'light');
-        } else {
+        if (body.classList.contains('light-mode')) {
             applyTheme('dark');
             localStorage.setItem('theme', 'dark');
+        } else {
+            applyTheme('light');
+            localStorage.setItem('theme', 'light');
         }
     });
 });

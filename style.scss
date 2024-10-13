@@ -4,7 +4,7 @@ Theme URI:      https://github.com/insign/h24
 Author:         Hélio <open@helio.me>
 Author URI:     https://helio.me
 Description:    WP theme for helio.me for 2024
-Version:        2024.2.9
+Version:        2024.2.10
 License:        WTFPL
 License URI:    http://www.wtfpl.net
 Text Domain:    h24
@@ -21,9 +21,13 @@ $color-blue:        #0090FF;
 $color-orange:      #FF7A00;
 $color-black:       #000;
 $color-white:       #FFF;
+$color-light-bg:    $color-white;
+$color-light-text:  $color-black;
 $color-dark-bg:     #121212;
-$color-dark-text:   #FFF;
+$color-dark-text:   $color-white;
 $color-footer-text: #333;
+$color-text-default: $color-dark-text;
+$color-bg-default: $color-dark-bg;
 
 /* Breakpoints */
 $breakpoint-large:  1025px;
@@ -82,8 +86,8 @@ body {
   font-style:              normal;
   font-variation-settings: 'wdth' 100;
   font-size:               1.2rem;
-  background-color:        $color-white;
-  color:                   $color-black;
+  background-color:        $color-bg-default;
+  color:                   $color-text-default;
 
   @include respond-to(large) {
     max-width: 900px;
@@ -126,7 +130,8 @@ h3 {
 
 ul {
   list-style-type: circle;
-  margin-left: 2rem;
+  margin-left:     2rem;
+
   li {
     margin-bottom: .3rem;
   }
@@ -146,7 +151,7 @@ header {
     a {
       text-decoration: none;
       font-size:       24px;
-      color:           $color-black;
+      color:           $color-text-default;
       font-weight:     600;
     }
   }
@@ -193,7 +198,7 @@ nav {
     padding-top: 6px;
   }
 
-  .light-button {
+  .dark-button {
     display: none;
   }
 }
@@ -220,7 +225,7 @@ nav {
    ======================================== */
 
 .date {
-  color: color.adjust($color-black, $lightness: 50%);
+  color: color.adjust($color-white, $lightness: -50%);
 }
 
 .pagination {
@@ -264,26 +269,26 @@ footer {
 }
 
 /* ========================================
-   Modo Escuro (Dark Mode)
+   Modo Claro (Light Mode)
    ======================================== */
 
-.dark-mode {
-  background-color: $color-dark-bg;
-  color:            $color-dark-text;
+.light-mode {
+  background-color: $color-light-bg;
+  color:            $color-light-text;
 
   .site-title {
     a {
-      color: $color-dark-text;
+      color: $color-light-text;
     }
   }
 
   .theme-toggle {
-    .light-button {
+    .dark-button {
       display: inline;
       color:   $color-dark-text;
     }
 
-    .dark-button {
+    .light-button {
       display: none;
     }
   }
@@ -294,19 +299,19 @@ footer {
    ======================================== */
 
 @include respond-to(xsmall) {
-    nav {
-      ul {
-        display:    block;
-        text-align: right;
+  nav {
+    ul {
+      display:    block;
+      text-align: right;
 
-        li {
-          margin: .8rem 0 0 0;
+      li {
+        margin: .8rem 0 0 0;
 
-          a {
+        a {
 
-          }
         }
-
       }
+
     }
+  }
 }
