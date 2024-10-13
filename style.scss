@@ -4,13 +4,13 @@ Theme URI:      https://github.com/insign/h24
 Author:         Hélio <open@helio.me>
 Author URI:     https://helio.me
 Description:    WP theme for helio.me for 2024
-Version:        2024.2.5
+Version:        2024.2.6
 License:        WTFPL
 License URI:    http://www.wtfpl.net
 Text Domain:    h24
 Tags:           simple, basic, responsive-layout
 */
-
+@use "sass:color";
 /* ========================================
    Variáveis
    ======================================== */
@@ -216,7 +216,7 @@ nav {
    ======================================== */
 
 .date {
-  color: lighten($color-black, 50%);
+  color: color.adjust($color-black, $lightness: 50%);
 }
 
 .pagination {
