@@ -4,7 +4,7 @@ Theme URI:      https://github.com/insign/h24
 Author:         Hélio <open@helio.me>
 Author URI:     https://helio.me
 Description:    WP theme for helio.me for 2024
-Version:        2024.2.8
+Version:        2024.2.9
 License:        WTFPL
 License URI:    http://www.wtfpl.net
 Text Domain:    h24
@@ -84,7 +84,6 @@ body {
   font-size:               1.2rem;
   background-color:        $color-white;
   color:                   $color-black;
-  transition:              background-color 0.3s, color 0.3s;
 
   @include respond-to(large) {
     max-width: 900px;
