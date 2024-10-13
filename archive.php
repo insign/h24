@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <?php if (have_posts()) : ?>
-  <h1 class="text-center">
+  <h1>
     <?php
     if (is_category()) {
       single_cat_title();
