@@ -29,8 +29,7 @@ if (is_home() && !is_paged()) {
     while (have_posts()):
       the_post(); ?>
       <div class="post">
-        <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-        <p><?php echo get_the_date(); ?></p>
+        <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> - <span class="date"><?php echo get_the_date(); ?></span></h2>
         <div class="entry-content">
           <?php the_content(); ?>
         </div>
