@@ -4,7 +4,7 @@ Theme URI:      https://github.com/insign/h24
 Author:         Hélio <open@helio.me>
 Author URI:     https://helio.me
 Description:    WP theme for helio.me for 2024
-Version:        2024.2.40
+Version:        2024.2.41
 License:        WTFPL
 License URI:    http://www.wtfpl.net
 Text Domain:    h24
@@ -222,6 +222,10 @@ nav {
     max-width: 100%;
     height:    auto;
     border-radius: .5rem;
+  }
+
+  ul {
+    margin-left: 2rem;
   }
 }
 
