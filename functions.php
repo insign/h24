@@ -239,7 +239,9 @@ add_filter( 'xmlrpc_enabled', '__return_false' );
 // 12. Remover scripts e estilos do Gutenberg
 function rw_remove_gutenberg_assets() {
   wp_dequeue_style( 'wp-block-library' );
+  wp_dequeue_style( 'wp-block-library-theme' );
   wp_dequeue_style( 'wc-block-style' ); // Remover estilos de blocos do WooCommerce, se necessário
+  wp_dequeue_style( 'global-styles' );
   wp_dequeue_style( 'classic-theme-styles' ); // Remover estilos de editor clássico
 }
 add_action( 'wp_enqueue_scripts', 'rw_remove_gutenberg_assets', 100 );
