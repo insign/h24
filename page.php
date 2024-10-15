@@ -3,6 +3,6 @@
 
 <h2 class='date'><?= get_the_date() ?></h2>
 <div class="entry-content">
-  <?= get_the_content() ?>
+  <?= the_content() ?>
 </div>
 <?php get_footer() ?>
