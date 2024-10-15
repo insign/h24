@@ -1,9 +1,11 @@
-<?php get_header() ?>
+<?php get_header(); ?>
 
-<h1 class='entry-title'><?= get_the_title() ?></h1>
+<article id="post-<?php the_ID(); ?>" <?php post_class('content hentry'); ?>>
+  <h1 class='entry-title'><?php the_title(); ?></h1>
 
-<div class="entry-content">
-  <?php the_content() ?>
-</div>
+  <div class="entry-content">
+    <?php the_content(); ?>
+  </div>
+</article>
 
-<?php get_footer() ?>
+<?php get_footer(); ?>
