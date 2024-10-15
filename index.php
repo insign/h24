@@ -12,7 +12,7 @@
           <h2 class="entry-title"><?= get_the_title() ?> - <span class='date'><?= get_the_date() ?></span></h2>
         <?php endif ?>
         <div class="entry-content">
-          <?= get_the_content() ?>
+          <?php echo the_content() ?>
         </div>
       </div>
     <?php endwhile; ?>
