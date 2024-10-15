@@ -14,7 +14,7 @@
     while ($blog_query->have_posts()):
       $blog_query->the_post(); ?>
       <div class="post">
-        <h2><span><?php echo get_the_date(); ?> - </span><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+        <h2><span class="date"><?php echo get_the_date(); ?> - </span><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
       </div>
     <?php endwhile;
     wp_reset_postdata();
