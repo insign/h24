@@ -56,9 +56,11 @@ if (is_home() && !is_paged()) {
         </div>
       </div>
     <?php endwhile; ?>
-    <div class="pagination">
-      <?php the_posts_pagination(); ?>
-    </div>
+    <?php if ( $GLOBALS['wp_query']->max_num_pages > 1 ) : ?>
+      <div class="pagination">
+        <?php the_posts_pagination(); ?>
+      </div>
+    <?php endif; ?>
   <?php else:
     echo '<p>' . __('Nenhum post encontrado.', 'h24') . '</p>';
   endif;
