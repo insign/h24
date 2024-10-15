@@ -9,7 +9,7 @@
         <?php if (is_page()) : ?>
           <h2 class="entry-title"><?= get_the_title() ?></h2>
         <?php else : ?>
-          <h2 class="entry-title"><a href="<?= get_the_permalink() ?>"><?= get_the_title() ?></a> - <span class='date'><?= get_the_date() ?></span></h2>
+          <h2 class="entry-title"><?= get_the_title() ?> - <span class='date'><?= get_the_date() ?></span></h2>
         <?php endif ?>
         <div class="entry-content">
           <?= get_the_content() ?>
