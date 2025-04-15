@@ -3,8 +3,8 @@ Theme Name:     h24
 Theme URI:      https://github.com/insign/h24
 Author:         Hélio <open@helio.me>
 Author URI:     https://helio.me
-Description:    WP theme for helio.me for 2024
-Version:        2024.2.42
+Description:    WP theme for helio.me for 2025
+Version:        2025.4.1
 License:        WTFPL
 License URI:    http://www.wtfpl.net
 Text Domain:    h24
@@ -196,10 +196,6 @@ nav {
     height:      24px;
     padding-top: 6px;
   }
-
-  .dark-button {
-    display: none;
-  }
 }
 
 /* ========================================
@@ -288,17 +284,6 @@ footer {
   .site-title {
     a {
       color: $color-light-text;
-    }
-  }
-
-  .theme-toggle {
-    .dark-button {
-      display: inline;
-      color:   $color-dark-text;
-    }
-
-    .light-button {
-      display: none;
     }
   }
 }
