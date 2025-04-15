@@ -10,4 +10,9 @@
     </div>
   </article>
 
+// Comments section tag
+<comments>
+   <script src='//giscus.app/client.js' data-repo='insign/helio.me-comments' data-repo-id='R_kgDOOaRcaQ' data-category='Announcements' data-category-id='DIC_kwDOOaRcac4CpIkq' data-mapping='pathname' data-strict='0' data-reactions-enabled='1' data-emit-metadata='1' data-input-position='top' data-theme='preferred_color_scheme' data-lang='pt' data-loading='lazy' crossorigin='anonymous' async></script>
+</comments>
+
 <?php get_footer(); ?>
