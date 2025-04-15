@@ -25,9 +25,9 @@ $color-light-bg:    $color-white;
 $color-light-text:  $color-black;
 $color-dark-bg:     #121212;
 $color-dark-text:   $color-white;
-$color-footer-text: #333;
-$color-text-default: $color-dark-text;
-$color-bg-default: $color-dark-bg;
+$color-footer-text: #333; // Cor padrão para o texto do rodapé (será ajustada no modo claro)
+$color-text-default: $color-dark-text; // Cor de texto padrão (para modo escuro)
+$color-bg-default: $color-dark-bg; // Cor de fundo padrão (para modo escuro)
 
 /* Breakpoints */
 $breakpoint-large:  1025px;
@@ -44,7 +44,7 @@ $font-family:       'Open Sans', sans-serif;
 
 /**
  * Mixin para media queries
- * @param {String} $breakpoint - Nome do breakpoint (large, medium, small)
+ * @param {String} $breakpoint - Nome do breakpoint (large, medium, small, xsmall)
  */
 @mixin respond-to($breakpoint) {
   @if $breakpoint == large {
@@ -86,8 +86,9 @@ body {
   font-style:              normal;
   font-variation-settings: 'wdth' 100;
   font-size:               1.2rem;
-  background-color:        $color-bg-default;
-  color:                   $color-text-default;
+  background-color:        $color-bg-default; // Fundo escuro por padrão
+  color:                   $color-text-default; // Texto claro por padrão
+  transition: background-color 0.3s ease, color 0.3s ease; // Transição suave para mudança de tema
 
   @include respond-to(large) {
     max-width: 900px;
@@ -103,6 +104,7 @@ body {
 a {
   color:           $color-blue;
   text-decoration: none;
+  transition: color 0.2s ease; // Transição suave para links
 
   &:hover {
     color: $color-orange;
@@ -129,7 +131,7 @@ h3 {
 }
 
 ul {
-  list-style-type: circle;
+  list-style-type: circle; // Estilo padrão para listas não ordenadas
 
   li {
     margin-bottom: .3rem;
@@ -142,16 +144,24 @@ ul {
 
 header {
   display:         flex;
-  justify-content: space-between;
-  align-items:     center;
-  padding:         20px;
+  justify-content: space-between; // Espaça o título e a navegação
+  align-items:     center; // Alinha verticalmente os itens
+  padding:         20px; // Espaçamento interno
 
   .site-title {
+    display: flex; // Permite alinhar o botão e o link do título
+    align-items: center; // Alinha o botão e o link verticalmente
+    gap: 10px; // Espaço entre o botão e o link do título
+
     a {
       text-decoration: none;
       font-size:       24px;
-      color:           $color-text-default;
+      color:           $color-text-default; // Cor do título usa a padrão do body
       font-weight:     600;
+
+      &:hover {
+        color: $color-orange; // Muda a cor no hover, mesmo que seja igual ao link padrão
+      }
     }
   }
 }
@@ -162,21 +172,23 @@ header {
 
 nav {
   ul {
-    list-style: none;
-    display:    flex;
+    list-style: none; // Remove marcadores de lista
+    display:    flex; // Coloca os itens em linha
 
     li {
-      margin: 0 0 0 1.5rem;
+      margin: 0 0 0 1.5rem; // Espaçamento entre os itens do menu
 
+      // Estilo para o item de menu ativo
       &.current-menu-item {
         a {
-          color: $color-orange;
+          color: $color-orange; // Destaca o item ativo com a cor laranja
         }
       }
 
       a {
         text-decoration: none;
-        font-size:       24px;
+        font-size:       24px; // Tamanho da fonte igual ao título
+        // A cor do link é herdada do estilo global 'a'
       }
     }
   }
@@ -187,14 +199,18 @@ nav {
    ======================================== */
 
 .theme-toggle {
-  cursor:           pointer;
-  border:           none;
-  background-color: transparent;
+  cursor:           pointer; // Mãozinha ao passar o mouse
+  border:           none; // Sem borda
+  background-color: transparent; // Fundo transparente
+  padding:          0; // Remove padding padrão do botão, se houver
+  line-height:      0; // Ajuda a alinhar a imagem verticalmente
 
   img {
-    width:       24px;
-    height:      24px;
-    padding-top: 6px;
+    width:       24px; // Largura fixa do ícone
+    height:      24px; // Altura fixa do ícone
+    vertical-align: middle; // Alinha melhor a imagem dentro do botão
+    filter: invert(1); // Inverte as cores da imagem (preto vira branco) - Padrão para tema escuro
+    transition: filter 0.3s ease; // Transição suave para o filtro
   }
 }
 
@@ -203,47 +219,74 @@ nav {
    ======================================== */
 
 .content {
-  padding: 20px;
+  padding: 20px; // Espaçamento interno da área de conteúdo
 
   .entry-content {
-    margin-bottom: 30px;
+    margin-bottom: 30px; // Espaço após o conteúdo principal do post/página
   }
 
   p {
-    margin: 1rem 0;
-    line-height:   2rem;
+    margin: 1rem 0; // Espaçamento vertical para parágrafos
+    line-height:   2rem; // Altura da linha para melhor legibilidade
   }
 
   img {
-    max-width: 100%;
-    height:    auto;
-    border-radius: .5rem;
+    max-width: 100%; // Garante que imagens não ultrapassem o container
+    height:    auto; // Mantém a proporção da imagem
+    border-radius: .5rem; // Bordas arredondadas para imagens
+    display: block; // Evita espaço extra abaixo da imagem
+    margin: 1rem auto; // Centraliza imagens que não ocupam toda a largura
   }
 
+  // Estilos específicos para listas dentro do conteúdo
   ul {
-    margin-left: 2rem;
+    margin-left: 2rem; // Recuo para listas não ordenadas
   }
 }
 
 /* ========================================
-   Geral
+   Geral (Elementos comuns)
    ======================================== */
 
+// Estilo para datas (usado em posts, arquivos, etc.)
 .date {
-  color: color.adjust($color-white, $lightness: -50%);
+  // Ajusta a cor da data para ser um cinza mais escuro no tema escuro
+  color: color.adjust($color-dark-text, $lightness: -35%);
+  font-size: 0.9em; // Ligeiramente menor que o texto ao redor
 }
 
+// Estilos para a paginação
 .pagination {
-  display:         flex;
-  justify-content: center;
-  margin-top:      2rem;
+  display:         flex; // Usa flexbox para alinhar os números
+  justify-content: center; // Centraliza os números da página
+  margin-top:      2rem; // Espaço acima da paginação
 
   .page-numbers {
-    margin: 0 10px;
+    margin: 0 5px; // Espaço horizontal entre os números/links da página
+    padding: 5px 10px; // Espaçamento interno
+    border: 1px solid color.adjust($color-dark-text, $alpha: -0.7); // Borda sutil
+    border-radius: 4px; // Bordas arredondadas
+    transition: background-color 0.2s ease, color 0.2s ease; // Transição suave
+
+    // Remove a cor padrão de link para aplicar estilos específicos
+    &, &:link, &:visited {
+      color: $color-text-default;
+      text-decoration: none;
+    }
+
+    &:hover {
+      background-color: $color-blue;
+      color: $color-white; // Texto branco no hover
+      border-color: $color-blue;
+    }
   }
 
+  // Estilo para o número da página atual
   .current {
-    font-weight: bold;
+    font-weight: bold; // Negrito para destacar
+    background-color: color.adjust($color-dark-text, $alpha: -0.8); // Fundo sutil para diferenciar
+    border-color: color.adjust($color-dark-text, $alpha: -0.6);
+    color: $color-text-default; // Garante a cor do texto padrão
   }
 }
 
@@ -252,24 +295,38 @@ nav {
    ======================================== */
 
 footer {
-  padding:    20px;
-  text-align: center;
+  padding:    20px; // Espaçamento interno
+  text-align: center; // Centraliza o conteúdo
+  margin-top: 2rem; // Espaço acima do rodapé
+  border-top: 1px solid color.adjust($color-dark-text, $alpha: -0.8); // Linha sutil de separação
 
   .footer-menu {
-    list-style:      none;
-    display:         flex;
-    justify-content: center;
-    margin-bottom:   10px;
+    list-style:      none; // Remove marcadores
+    display:         flex; // Itens em linha
+    justify-content: center; // Centraliza o menu
+    margin-bottom:   10px; // Espaço abaixo do menu
+    padding-left:    0; // Remove padding padrão da lista
 
     li {
-      margin: 0 15px;
+      margin: 0 15px; // Espaçamento entre os itens do menu
 
       a {
         text-decoration: none;
-        color:           $color-footer-text;
-        font-size:       14px;
+        // Cor é definida no modo claro/escuro abaixo
+        font-size:       14px; // Tamanho menor para o rodapé
+        color: color.adjust($color-dark-text, $lightness: -30%); // Cor cinza claro para o modo escuro
+
+        &:hover {
+          color: $color-orange; // Laranja no hover
+        }
       }
     }
+  }
+
+  // Parágrafo de copyright
+  p {
+    font-size: 14px; // Tamanho menor
+    color: color.adjust($color-dark-text, $lightness: -40%); // Cor cinza mais escuro no modo escuro
   }
 }
 
@@ -278,12 +335,58 @@ footer {
    ======================================== */
 
 .light-mode {
-  background-color: $color-light-bg;
-  color:            $color-light-text;
+  background-color: $color-light-bg; // Fundo branco
+  color:            $color-light-text; // Texto preto
 
-  .site-title {
-    a {
-      color: $color-light-text;
+  // Ajusta a cor do título do site no modo claro
+  header .site-title a {
+    color: $color-light-text;
+  }
+
+  // Remove o filtro de inversão dos ícones do tema no modo claro
+  .theme-toggle img {
+    filter: none; // Mostra a cor original do SVG (preto)
+  }
+
+  // Ajusta a cor da data no modo claro
+  .date {
+    color: color.adjust($color-light-text, $lightness: +10%); // Cinza escuro
+  }
+
+  // Ajusta cores da paginação no modo claro
+  .pagination .page-numbers {
+    border-color: color.adjust($color-light-text, $alpha: -0.8); // Borda cinza claro
+
+    &, &:link, &:visited {
+      color: $color-light-text; // Texto preto
+    }
+
+    &:hover {
+      background-color: $color-blue;
+      color: $color-white; // Texto branco no hover
+      border-color: $color-blue;
+    }
+  }
+
+  .pagination .current {
+    background-color: color.adjust($color-light-text, $alpha: -0.9); // Fundo cinza bem claro
+    border-color: color.adjust($color-light-text, $alpha: -0.8);
+    color: $color-light-text; // Texto preto
+  }
+
+  // Ajusta cores do rodapé no modo claro
+  footer {
+    border-top-color: color.adjust($color-light-text, $alpha: -0.9); // Linha de separação bem clara
+
+    .footer-menu li a {
+      color: $color-footer-text; // Cor definida na variável
+
+      &:hover {
+        color: $color-orange;
+      }
+    }
+    p {
+      color: color.adjust($color-footer-text, $lightness: +20%); // Cinza um pouco mais claro
     }
   }
 }
@@ -292,35 +395,59 @@ footer {
    Responsividade Adicional
    ======================================== */
 
+// Ajustes para telas muito pequenas
 @include respond-to(xsmall) {
+  // Faz o header empilhar (título/botão em cima, nav embaixo)
+  header {
+    flex-direction: column; // Empilha os itens
+    align-items: center; // Centraliza na horizontal
+    gap: 15px; // Espaço entre título/botão e nav
+
+    .site-title {
+      // O gap já está definido, pode ajustar se necessário
+    }
+  }
+
+  // Ajusta o menu de navegação para telas pequenas
   nav {
+    width: 100%; // Ocupa toda a largura
+
     ul {
-      display:    block;
-      text-align: right;
+      justify-content: center; // Centraliza os itens do menu
+      flex-wrap: wrap; // Permite que os itens quebrem linha
+      padding-left: 0; // Remove padding padrão da lista
 
       li {
-        margin: .8rem 0 0 0;
+        margin: 5px 10px; // Ajusta margens para acomodar melhor
 
         a {
-
+          font-size: 20px; // Reduz um pouco a fonte no menu
         }
       }
-
     }
+  }
+
+  // Ajusta títulos para não ficarem tão grandes
+  h1 {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 1.2rem;
   }
 }
 
 /* ========================================
-   Visually Hidden
+   Classes Utilitárias (ex: para acessibilidade)
    ======================================== */
 
+// Esconde visualmente, mas mantém acessível para leitores de tela
 .screen-reader-text {
-  position: absolute;
-  width: 1px;
-  height: 1px;
+  position: absolute; // Fora do fluxo normal
+  width: 1px; // Tamanho mínimo
+  height: 1px; // Tamanho mínimo
   padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  margin: -1px; // Evita ocupar espaço
+  overflow: hidden; // Esconde conteúdo que transborda
+  clip: rect(0, 0, 0, 0); // Método antigo mas robusto para esconder
+  border: 0; // Remove borda
 }
