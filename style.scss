@@ -37,6 +37,7 @@ $breakpoint-xsmall: 450px;
 
 /* Fonte */
 $font-family:       'Open Sans', sans-serif;
+$font-family-serif: Georgia, Times, 'Times New Roman', serif; // Fonte serifada para blockquotes
 
 /* ========================================
    Mixins
@@ -223,24 +224,58 @@ nav {
 
   .entry-content {
     margin-bottom: 30px; // Espaço após o conteúdo principal do post/página
-  }
 
-  p {
-    margin: 1rem 0; // Espaçamento vertical para parágrafos
-    line-height:   2rem; // Altura da linha para melhor legibilidade
-  }
+    p {
+      margin: 1rem 0; // Espaçamento vertical para parágrafos
+      line-height:   2rem; // Altura da linha para melhor legibilidade
+    }
 
-  img {
-    max-width: 100%; // Garante que imagens não ultrapassem o container
-    height:    auto; // Mantém a proporção da imagem
-    border-radius: .5rem; // Bordas arredondadas para imagens
-    display: block; // Evita espaço extra abaixo da imagem
-    margin: 1rem auto; // Centraliza imagens que não ocupam toda a largura
-  }
+    img {
+      max-width: 100%; // Garante que imagens não ultrapassem o container
+      height:    auto; // Mantém a proporção da imagem
+      border-radius: .5rem; // Bordas arredondadas para imagens
+      display: block; // Evita espaço extra abaixo da imagem
+      margin: 1rem auto; // Centraliza imagens que não ocupam toda a largura
+    }
 
-  // Estilos específicos para listas dentro do conteúdo
-  ul {
-    margin-left: 2rem; // Recuo para listas não ordenadas
+    // Estilos específicos para listas dentro do conteúdo
+    ul {
+      margin-left: 2rem; // Recuo para listas não ordenadas
+    }
+
+    // Estilos para citações (blockquotes)
+    blockquote {
+      font-family: $font-family-serif; // Usa a fonte serifada definida nas variáveis
+      font-size:   1.1em; // Ligeiramente maior que o texto normal (110%)
+      font-style:  italic; // Estilo itálico comum para citações
+      margin:      1.5rem 0 1.5rem 1.5rem; // Margens superior/inferior e recuo à esquerda
+      padding:     0.5rem 1.5rem; // Espaçamento interno
+      border-left: 3px solid $color-blue; // Borda esquerda azul para destaque (modo escuro)
+      position: relative; // Permite posicionamento relativo dos pseudo-elementos (aspas)
+
+      // Adiciona aspas de abertura antes do conteúdo
+      &::before {
+        content:       "“"; // Aspas duplas de abertura
+        font-size:     1.5em; // Tamanho maior para as aspas
+        color:         $color-blue; // Cor azul (modo escuro)
+        margin-right:  0.2em; // Pequeno espaço após a aspa
+        vertical-align: -0.2em; // Ajuste fino da posição vertical
+      }
+
+      // Adiciona aspas de fechamento depois do conteúdo
+      &::after {
+        content:       "”"; // Aspas duplas de fechamento
+        font-size:     1.5em; // Tamanho maior para as aspas
+        color:         $color-blue; // Cor azul (modo escuro)
+        margin-left:   0.2em; // Pequeno espaço antes da aspa
+        vertical-align: -0.2em; // Ajuste fino da posição vertical
+      }
+
+      // Evita margem extra no último parágrafo dentro da citação
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 
@@ -353,6 +388,16 @@ footer {
     color: color.adjust($color-light-text, $lightness: +10%); // Cinza escuro
   }
 
+  // Ajusta cores da citação (blockquote) no modo claro
+  .content .entry-content blockquote {
+    border-left-color: $color-orange; // Usa a cor laranja para a borda
+
+    // Ajusta a cor das aspas para laranja
+    &::before, &::after {
+      color: $color-orange;
+    }
+  }
+
   // Ajusta cores da paginação no modo claro
   .pagination .page-numbers {
     border-color: color.adjust($color-light-text, $alpha: -0.8); // Borda cinza claro
@@ -433,6 +478,13 @@ footer {
   }
   h2 {
     font-size: 1.2rem;
+  }
+
+  // Ajusta recuo da citação em telas pequenas
+  .content .entry-content blockquote {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
