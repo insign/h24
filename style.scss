@@ -310,6 +310,12 @@ nav {
   font-size: 0.9em; // Ligeiramente menor que o texto ao redor
 }
 
+// Esconde a data de publicação em artigos da categoria 'pages'
+// A classe 'category-pages' é adicionada automaticamente por post_class() em single.php
+article.category-pages .date.published {
+  display: none;
+}
+
 // Estilos para a paginação
 .pagination {
   display:         flex; // Usa flexbox para alinhar os números
@@ -407,6 +413,9 @@ footer {
   .date {
     color: color.adjust($color-light-text, $lightness: +10%); // Cinza escuro
   }
+  // A regra `article.category-pages .date.published { display: none; }`
+  // continua funcionando aqui sem precisar ser redeclarada,
+  // pois a ocultação independe do modo claro/escuro.
 
   // Ajusta cores da citação (blockquote) no modo claro
   .content .entry-content blockquote {
