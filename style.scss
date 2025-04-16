@@ -248,38 +248,62 @@ nav {
       font-family: $font-family-serif; // Usa a fonte serifada definida nas variáveis
       font-size:   1.1em; // Ligeiramente maior que o texto normal (110%)
       font-style:  italic; // Estilo itálico comum para citações
-      margin:      1.5rem 0 1.5rem 1.5rem; // Margens superior/inferior e recuo à esquerda GERAL
-      padding:     0.5rem 0; // Apenas padding vertical interno para o blockquote
-      border-left: 3px solid $color-blue; // Borda esquerda azul para destaque (modo escuro)
+      margin: 1.5rem 0 1.5rem 1rem; // Margens verticais e um leve recuo à esquerda
+      padding: 1rem 1.5rem; // Espaçamento interno
+      border-left: 4px solid $color-blue; // Borda azul à esquerda (tema escuro)
+      background-color: color.adjust($color-dark-bg, $lightness: +5%); // Fundo ligeiramente mais claro no tema escuro
+      border-radius: 0 4px 4px 0; // Arredonda cantos direito-superior e direito-inferior
+      transition: border-color 0.3s ease, background-color 0.3s ease; // Transição suave para mudança de tema
 
       // Aplica recuo à esquerda em todos os parágrafos internos para alinhar com a margem/borda
+      // Remove margem padrão dos parágrafos dentro do blockquote para controlar espaçamento
       p {
-        padding-left: 1.5rem; // Recuo interno para o texto, criando espaço após a borda
+        margin: 0 0 0.5rem 0; // Remove margens laterais e superior, adiciona pequena margem inferior entre parágrafos
+        padding: 0; // Remove padding interno do parágrafo, se houver
         position: relative; // Necessário para o posicionamento absoluto do ::before
+        font-style: italic; // Garante itálico mesmo se resetado
       }
 
       // Adiciona aspas de abertura antes do conteúdo do PRIMEIRO parágrafo
       p:first-of-type::before {
         content:       "“"; // Aspas duplas de abertura
-        font-size:     1.5em; // Tamanho maior para as aspas
+        font-size:     1.8em; // Tamanho maior para as aspas
         color:         $color-blue; // Cor azul (modo escuro)
         position:      absolute; // Posicionamento absoluto relativo ao <p>
-        left:          0.2em; // Posição horizontal DENTRO do padding-left do <p>
-        top:           -0.1em; // Ajuste fino da posição vertical (para alinhar com o topo do texto)
+        left:          -0.6em; // Posição horizontal (ajustar conforme necessário)
+        top:           -0.2em; // Ajuste fino da posição vertical
+        font-style:    normal; // Garante que as aspas não sejam itálicas
+        transition: color 0.3s ease; // Transição suave de cor
       }
 
       // Adiciona aspas de fechamento depois do conteúdo do ÚLTIMO parágrafo
       p:last-of-type::after {
         content:       "”"; // Aspas duplas de fechamento
-        font-size:     1.5em; // Tamanho maior para as aspas
+        font-size:     1.8em; // Tamanho maior para as aspas
         color:         $color-blue; // Cor azul (modo escuro)
         margin-left:   0.2em; // Pequeno espaço antes da aspa final
-        vertical-align: -0.2em; // Ajuste fino da posição vertical
+        vertical-align: -0.3em; // Ajuste fino da posição vertical para alinhar melhor com o fim do texto
+        display: inline-block; // Necessário para vertical-align e posicionamento correto
+        font-style: normal; // Garante que as aspas não sejam itálicas
+        transition: color 0.3s ease; // Transição suave de cor
       }
 
-      // Evita margem extra no último parágrafo dentro da citação (se for o último elemento)
-      p:last-child {
+      // Remove margem inferior do último elemento dentro do blockquote (seja p ou cite)
+      *:last-child {
         margin-bottom: 0;
+      }
+
+      // Estilos para a tag <cite> dentro do blockquote (atribuição)
+      cite {
+        display: block; // Garante que fique em uma linha separada
+        text-align: right; // Alinha o texto à direita
+        margin-top: 0.8rem; // Espaço acima da atribuição, após o último <p>
+        font-style: normal; // Remove o itálico padrão da tag <cite>
+        font-size: 0.9em; // Ligeiramente menor que o texto principal
+        // Cor padrão (para tema escuro) - um cinza claro
+        color: color.adjust($color-dark-text, $lightness: -25%);
+        // Transição suave de cor ao trocar de tema
+        transition: color 0.3s ease;
       }
     }
   }
@@ -397,11 +421,17 @@ footer {
   // Ajusta cores da citação (blockquote) no modo claro
   .content .entry-content blockquote {
     border-left-color: $color-orange; // Usa a cor laranja para a borda
+    background-color: color.adjust($color-light-bg, $lightness: -5%); // Fundo ligeiramente mais escuro no tema claro
 
     // Ajusta a cor das aspas para laranja
     p:first-of-type::before,
     p:last-of-type::after {
       color: $color-orange;
+    }
+
+    // Ajusta a cor da citação (atribuição) no modo claro
+    cite {
+      color: color.adjust($color-light-text, $lightness: +40%); // Cor cinza mais escuro
     }
   }
 
@@ -487,20 +517,27 @@ footer {
     font-size: 1.2rem;
   }
 
-  // Ajusta recuo e aspas da citação em telas pequenas
+  // Ajusta recuo, padding e aspas da citação em telas pequenas
   .content .entry-content blockquote {
-    margin-left: 1rem; // Reduz a margem geral externa
-
-    p {
-      padding-left: 1rem; // Reduz o recuo interno do texto
-    }
+    margin-left: 0.5rem; // Reduz a margem geral externa
+    padding: 0.8rem 1rem; // Reduz padding interno
 
     // Ajusta posição da aspa de abertura para o recuo menor
     p:first-of-type::before {
-      left: 0.1em;
+      left: -0.5em; // Aproxima mais da borda
+      font-size: 1.6em; // Pode ajustar o tamanho se necessário
     }
 
-    // Não é necessário ajustar ::after, pois ele flui com o texto.
+    // Ajusta posição da aspa de fechamento
+    p:last-of-type::after {
+      font-size: 1.6em; // Pode ajustar o tamanho se necessário
+    }
+
+    // Ajusta a atribuição <cite>
+    cite {
+      font-size: 0.85em; // Levemente menor
+      margin-top: 0.6rem; // Menos espaço acima
+    }
   }
 }
 
