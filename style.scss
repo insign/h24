@@ -248,12 +248,6 @@ nav {
       font-family: $font-family-serif; // Usa a fonte serifada definida nas variáveis
       font-size:   1.1em; // Ligeiramente maior que o texto normal (110%)
       font-style:  italic; // Estilo itálico comum para citações
-      margin: 1.5rem 0 1.5rem 1rem; // Margens verticais e um leve recuo à esquerda
-      padding: 1rem 1.5rem; // Espaçamento interno
-      border-left: 4px solid $color-blue; // Borda azul à esquerda (tema escuro)
-      background-color: color.adjust($color-dark-bg, $lightness: +5%); // Fundo ligeiramente mais claro no tema escuro
-      border-radius: 0 4px 4px 0; // Arredonda cantos direito-superior e direito-inferior
-      transition: border-color 0.3s ease, background-color 0.3s ease; // Transição suave para mudança de tema
 
       // Aplica recuo à esquerda em todos os parágrafos internos para alinhar com a margem/borda
       // Remove margem padrão dos parágrafos dentro do blockquote para controlar espaçamento
@@ -270,10 +264,9 @@ nav {
         font-size:     1.8em; // Tamanho maior para as aspas
         color:         $color-blue; // Cor azul (modo escuro)
         position:      absolute; // Posicionamento absoluto relativo ao <p>
-        left:          -0.6em; // Posição horizontal (ajustar conforme necessário)
-        top:           -0.2em; // Ajuste fino da posição vertical
+        left:          -0.4em; // Posição horizontal (ajustar conforme necessário)
+        top:           -0.1em; // Ajuste fino da posição vertical
         font-style:    normal; // Garante que as aspas não sejam itálicas
-        transition: color 0.3s ease; // Transição suave de cor
       }
 
       // Adiciona aspas de fechamento depois do conteúdo do ÚLTIMO parágrafo
@@ -281,11 +274,10 @@ nav {
         content:       "”"; // Aspas duplas de fechamento
         font-size:     1.8em; // Tamanho maior para as aspas
         color:         $color-blue; // Cor azul (modo escuro)
-        margin-left:   0.2em; // Pequeno espaço antes da aspa final
+        margin-left:   0.1em; // Pequeno espaço antes da aspa final
         vertical-align: -0.3em; // Ajuste fino da posição vertical para alinhar melhor com o fim do texto
         display: inline-block; // Necessário para vertical-align e posicionamento correto
         font-style: normal; // Garante que as aspas não sejam itálicas
-        transition: color 0.3s ease; // Transição suave de cor
       }
 
       // Remove margem inferior do último elemento dentro do blockquote (seja p ou cite)
@@ -299,11 +291,9 @@ nav {
         text-align: right; // Alinha o texto à direita
         margin-top: 0.8rem; // Espaço acima da atribuição, após o último <p>
         font-style: normal; // Remove o itálico padrão da tag <cite>
-        font-size: 0.9em; // Ligeiramente menor que o texto principal
+        font-size: 1em; // Ligeiramente menor que o texto principal
         // Cor padrão (para tema escuro) - um cinza claro
         color: color.adjust($color-dark-text, $lightness: -25%);
-        // Transição suave de cor ao trocar de tema
-        transition: color 0.3s ease;
       }
     }
   }
