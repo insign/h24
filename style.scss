@@ -209,7 +209,7 @@ nav {
     width:       24px; // Largura fixa do ícone
     height:      24px; // Altura fixa do ícone
     vertical-align: middle; // Alinha melhor a imagem dentro do botão
-    // filter: invert(1); // REMOVIDO daqui - Não inverte por padrão (mantém SVG original branco no modo escuro)
+    filter: invert(1); // Inverte as cores da imagem (preto vira branco) - Padrão para tema escuro
     transition: filter 0.3s ease; // Transição suave para o filtro
   }
 }
@@ -266,7 +266,7 @@ nav {
     padding: 5px 10px; // Espaçamento interno
     border: 1px solid color.adjust($color-dark-text, $alpha: -0.7); // Borda sutil
     border-radius: 4px; // Bordas arredondadas
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; // Transição suave
+    transition: background-color 0.2s ease, color 0.2s ease; // Transição suave
 
     // Remove a cor padrão de link para aplicar estilos específicos
     &, &:link, &:visited {
@@ -299,7 +299,6 @@ footer {
   text-align: center; // Centraliza o conteúdo
   margin-top: 2rem; // Espaço acima do rodapé
   border-top: 1px solid color.adjust($color-dark-text, $alpha: -0.8); // Linha sutil de separação
-  transition: border-top-color 0.3s ease; // Transição suave para a borda
 
   .footer-menu {
     list-style:      none; // Remove marcadores
@@ -313,9 +312,9 @@ footer {
 
       a {
         text-decoration: none;
+        // Cor é definida no modo claro/escuro abaixo
         font-size:       14px; // Tamanho menor para o rodapé
         color: color.adjust($color-dark-text, $lightness: -30%); // Cor cinza claro para o modo escuro
-        transition: color 0.2s ease; // Transição suave
 
         &:hover {
           color: $color-orange; // Laranja no hover
@@ -328,7 +327,6 @@ footer {
   p {
     font-size: 14px; // Tamanho menor
     color: color.adjust($color-dark-text, $lightness: -40%); // Cor cinza mais escuro no modo escuro
-    transition: color 0.3s ease; // Transição suave
   }
 }
 
@@ -345,9 +343,9 @@ footer {
     color: $color-light-text;
   }
 
-  // Inverte a cor dos ícones do tema no modo claro (original branco -> preto)
+  // Remove o filtro de inversão dos ícones do tema no modo claro
   .theme-toggle img {
-    filter: invert(1); // Inverte a cor original (branco) para preto
+    filter: none; // Mostra a cor original do SVG (preto)
   }
 
   // Ajusta a cor da data no modo claro
