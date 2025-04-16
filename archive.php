@@ -27,7 +27,7 @@
          <h2 class="entry-title">
             <a href='<?= esc_url(get_the_permalink()) ?>'><?= get_the_title() ?></a>
 			  <?php // Exibe a data da última modificação para posts na categoria 'pages' ?>
-            - <span class='date'><?php printf(__('Atualizado em %s', 'h24'), get_the_modified_date()) ?></span>
+            - <span class='date'><?php printf(__('atualizado em %s', 'h24'), get_the_modified_date()) ?></span>
          </h2>
 	 <?php else : // Para todas as outras categorias e tipos de arquivo ?>
          <h2 class="entry-title">
@@ -36,7 +36,7 @@
             - <span class='date'><?= get_the_date() ?></span>
          </h2>
 	 <?php endif ?>
-  <?php endwhile ?> ?>
+  <?php endwhile ?>
 
   <?php if ($GLOBALS[ 'wp_query' ]->max_num_pages > 1) : ?>
       <div class="pagination"><?= the_posts_pagination() ?></div>
