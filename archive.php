@@ -20,17 +20,23 @@
 	  endif;
 	  ?></h1>
 
-  <?php while (have_posts()) : the_post() ?><?php if (is_page()) : ?>
-      <h2 class="entry-title"><?= get_the_title() ?></h2>
-  <?php elseif (is_category('pages')) : ?>
-      <h2 class="entry-title">
-         <a href='<?= get_the_permalink() ?>'><?= get_the_title() ?></a>
-      </h2>
-  <?php else : ?>
-      <h2 class="entry-title">
-         <a href="<?= get_the_permalink() ?>"><?= get_the_title() ?></a>
-         - <span class='date'><?= get_the_date() ?></span></h2>
-  <?php endif ?><?php endwhile ?>
+  <?php while (have_posts()) : the_post() ?>
+	 <?php if (is_page()) : ?>
+         <h2 class="entry-title"><?= get_the_title() ?></h2>
+	 <?php elseif (is_category('pages')) : // Verifica se a categoria atual é 'pages' ?>
+         <h2 class="entry-title">
+            <a href='<?= esc_url(get_the_permalink()) ?>'><?= get_the_title() ?></a>
+			  <?php // Exibe a data da última modificação para posts na categoria 'pages' ?>
+            - <span class='date'><?php printf(__('Atualizado em %s', 'h24'), get_the_modified_date()) ?></span>
+         </h2>
+	 <?php else : // Para todas as outras categorias e tipos de arquivo ?>
+         <h2 class="entry-title">
+            <a href="<?= esc_url(get_the_permalink()) ?>"><?= get_the_title() ?></a>
+			  <?php // Exibe a data de publicação ?>
+            - <span class='date'><?= get_the_date() ?></span>
+         </h2>
+	 <?php endif ?>
+  <?php endwhile ?> ?>
 
   <?php if ($GLOBALS[ 'wp_query' ]->max_num_pages > 1) : ?>
       <div class="pagination"><?= the_posts_pagination() ?></div>
