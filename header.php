@@ -15,11 +15,11 @@
    <div class="site-title">
       <button class="theme-toggle" aria-label="<?php esc_attr_e('Alternar tema (Sistema, Claro, Escuro)', 'h24') ?>">
          <!-- Ícone para ativar o modo Sistema (exibido quando o modo Escuro está ativo) -->
-         <img class="theme-icon system-icon" src="<?= get_template_directory_uri() ?>/img/system-mode.svg" width="24" height="24" alt="<?php esc_attr_e('Mudar para tema do Sistema', 'h24') ?>" title="<?php esc_attr_e('Mudar para tema do Sistema', 'h24') ?>">
+         <img class="theme-icon system-icon" src="<?= get_template_directory_uri() ?>/img/system-mode.svg" width="24" height="24" alt="<?php esc_attr_e('Mudar para tema claro', 'h24') ?>" title="<?php esc_attr_e('Mudar para tema claro', 'h24') ?>">
          <!-- Ícone para ativar o modo Claro (exibido quando o modo Sistema está ativo) -->
-         <img class="theme-icon light-icon" src="<?= get_template_directory_uri() ?>/img/light-mode.svg" width="24" height="24" alt="<?php esc_attr_e('Mudar para tema Claro', 'h24') ?>" title="<?php esc_attr_e('Mudar para tema Claro', 'h24') ?>">
+         <img class="theme-icon light-icon" src="<?= get_template_directory_uri() ?>/img/light-mode.svg" width="24" height="24" alt="<?php esc_attr_e('Mudar para tema escuro', 'h24') ?>" title="<?php esc_attr_e('Mudar para tema escuro', 'h24') ?>">
          <!-- Ícone para ativar o modo Escuro (exibido quando o modo Claro está ativo) -->
-         <img class="theme-icon dark-icon" src="<?= get_template_directory_uri() ?>/img/dark-mode.svg" width="24" height="24" alt="<?php esc_attr_e('Mudar para tema Escuro', 'h24') ?>" title="<?php esc_attr_e('Mudar para tema Escuro', 'h24') ?>">
+         <img class="theme-icon dark-icon" src="<?= get_template_directory_uri() ?>/img/dark-mode.svg" width="24" height="24" alt="<?php esc_attr_e('Mudar para tema do sistema', 'h24') ?>" title="<?php esc_attr_e('Mudar para tema do sistema', 'h24') ?>">
       </button>
       <a href="<?= esc_url(home_url('/')) ?>">
 		  <?php bloginfo('name') ?>
