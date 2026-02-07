@@ -29,6 +29,9 @@ add_action('after_setup_theme', 'h24_setup');
 // Function to enqueue styles and scripts
 function h24_scripts ()
 {
+  // Enqueue Google Fonts
+  wp_enqueue_style('h24-google-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap', [], NULL);
+
   // Enqueue the main theme stylesheet
   wp_enqueue_style('h24-style', get_stylesheet_uri(), [], wp_get_theme()->get('Version'));
   
@@ -41,6 +44,21 @@ function h24_scripts ()
 }
 
 add_action('wp_enqueue_scripts', 'h24_scripts');
+
+function h24_resource_hints ( $urls, $relation_type )
+{
+  if ('preconnect' === $relation_type) {
+    $urls[] = 'https://fonts.googleapis.com';
+    $urls[] = [
+      'href'        => 'https://fonts.gstatic.com',
+      'crossorigin' => 'anonymous',
+    ];
+  }
+
+  return $urls;
+}
+
+add_filter('wp_resource_hints', 'h24_resource_hints', 10, 2);
 
 // Function to check for automatic theme updates via GitHub
 function h24_theme_update ( $transient )
