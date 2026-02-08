@@ -7,6 +7,19 @@
   <?php wp_head() ?>
 </head>
 <body <?php body_class() ?>>
+<script>
+  (function() {
+    const theme = localStorage.getItem('theme') || 'system';
+    let visualTheme = theme;
+    if (theme === 'system') {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      visualTheme = prefersDark ? 'dark' : 'light';
+    }
+    if (visualTheme === 'light') {
+      document.body.classList.add('light-mode');
+    }
+  })();
+</script>
 <header>
   <div class="site-title">
     <button class="theme-toggle" aria-label="<?php esc_attr_e('Toggle theme (System, Light, Dark)', 'h24') ?>">
