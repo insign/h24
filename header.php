@@ -5,11 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <?php wp_head() ?>
+  <style>
+    .theme-icon {
+      display: none;
+    }
+
+    body[data-theme="system"] .system-icon,
+    body[data-theme="light"] .light-icon,
+    body[data-theme="dark"] .dark-icon {
+      display: inline;
+    }
+  </style>
 </head>
 <body <?php body_class() ?>>
 <script>
   (function() {
     const theme = localStorage.getItem('theme') || 'system';
+    document.body.setAttribute('data-theme', theme);
     let visualTheme = theme;
     if (theme === 'system') {
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
