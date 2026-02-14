@@ -2,17 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Seleciona os elementos relevantes do DOM
     const toggleButton = document.querySelector('.theme-toggle')
     const body = document.body
-    const systemIcon = document.querySelector('.system-icon')
-    const lightIcon = document.querySelector('.light-icon')
-    const darkIcon = document.querySelector('.dark-icon')
 
     // Define os possíveis estados do tema
     const themes = ['system', 'light', 'dark']
-    const icons = {
-        system: systemIcon,
-        light: lightIcon,
-        dark: darkIcon
-    }
 
     // Função para aplicar o tema visualmente (classe no body)
     const applyVisualTheme = (theme) => {
@@ -32,32 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Função para atualizar o ícone visível no botão
-    const updateButtonIcon = (theme) => {
-        // Esconde todos os ícones primeiro
-        systemIcon.style.display = 'none'
-        lightIcon.style.display = 'none'
-        darkIcon.style.display = 'none'
-
-        // Mostra o ícone correspondente ao tema ATUALMENTE selecionado
-        if (icons[theme]) {
-            icons[theme].style.display = 'inline'
-        } else {
-            // Fallback para o ícone do sistema se algo der errado
-            icons['system'].style.display = 'inline'
-        }
-    }
-
     // Função principal para definir o tema
     const setTheme = (theme) => {
         // Verifica se o tema é válido, senão usa 'system' como padrão
         if (!themes.includes(theme)) {
             theme = 'system'
         }
+
+        // Atualiza o atributo data-theme no body para controle de ícones via CSS
+        body.setAttribute('data-theme', theme)
+
         // Aplica o tema visual (classe no body)
         applyVisualTheme(theme)
-        // Atualiza o ícone do botão para refletir o tema selecionado
-        updateButtonIcon(theme)
+
         // Salva a preferência no localStorage
         localStorage.setItem('theme', theme)
         // Atualiza a variável global que armazena o tema atual
