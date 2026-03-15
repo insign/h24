@@ -1,4 +1,4 @@
-</div> <!-- .content -->
+</main> <!-- .content -->
 <footer>
   <?php
   if (has_nav_menu('footer')) {
