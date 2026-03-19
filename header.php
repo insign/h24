@@ -56,4 +56,4 @@
     ?>
   </nav>
 </header>
-<div class="content">
+<main class="content">
