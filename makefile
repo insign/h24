@@ -12,7 +12,11 @@ release:
 	patch=$$(($$patch + 1)) ; \
 	new_version="$$major.$$minor.$$patch" ; \
 	echo "Nova versão: $$new_version" ; \
-	sed -i '' "s/^Version:.*/Version:        $$new_version/" $(VERSION_FILE) ; \
+	if [ "$$(uname -s)" = "Darwin" ]; then \
+		sed -i '' "s/^Version:.*/Version:        $$new_version/" $(VERSION_FILE) ; \
+	else \
+		sed -i "s/^Version:.*/Version:        $$new_version/" $(VERSION_FILE) ; \
+	fi ; \
 	sass style.scss style.css -s compressed ; \
 	git add . ; \
 	git commit -m "Versão $$new_version" ; \
