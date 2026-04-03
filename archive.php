@@ -12,7 +12,7 @@
      elseif (is_day()) :
 		 printf(__('Dia %s', 'h24'), get_the_date());
      elseif (is_month()) :
-		 printf(__('M s: %s', 'h24'), get_the_date('F Y'));
+		 printf(__('Mês: %s', 'h24'), get_the_date('F Y'));
      elseif (is_year()) :
 		 printf(__('Ano: %s', 'h24'), get_the_date('Y'));
 	  else :
