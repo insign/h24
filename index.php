@@ -5,7 +5,7 @@
 if (have_posts()):
   while (have_posts()): the_post() ?>
     <article id='item-<?php the_ID(); ?>' <?php post_class(); ?>>
-      <h2 class="entry-title"><?= get_the_title() ?> - <span class='date'><?= get_the_date() ?></span></h2>
+      <h2 class="entry-title"><a href="<?= get_permalink() ?>"><?= get_the_title() ?></a> - <span class='date'><?= get_the_date() ?></span></h2>
       <div class="entry-content">
         <?php the_content() ?>
       </div>
