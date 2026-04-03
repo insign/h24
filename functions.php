@@ -172,19 +172,6 @@ remove_action('template_redirect', 'wp_shortlink_header', 11, 0);   // Remove sh
 // 3. Remove WordPress version
 add_filter('the_generator', '__return_empty_string');
 
-// 4. Remove version numbers from CSS and JS files
-function rw_remove_version_query ( $src )
-{
-  if (strpos($src, 'ver=')) {
-    $src = remove_query_arg('ver', $src);
-  }
-  
-  return $src;
-}
-
-add_filter('style_loader_src', 'rw_remove_version_query', 9999);
-add_filter('script_loader_src', 'rw_remove_version_query', 9999);
-
 // 5. Disable emojis
 function rw_disable_emojis ()
 {
