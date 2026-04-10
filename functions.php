@@ -149,6 +149,23 @@ function h24_clear_theme_update_cache ( $upgrader_object, $options )
 // Add action to clear cache after the update process is complete
 add_action('upgrader_process_complete', 'h24_clear_theme_update_cache', 10, 2);
 
+// Fix for directory renaming during GitHub theme updates
+function h24_upgrader_source_selection ( $source, $remote_source, $upgrader, $hook_extra = null )
+{
+  global $wp_filesystem;
+
+  if ( isset( $hook_extra['theme'] ) && $hook_extra['theme'] === 'h24' ) {
+    $new_source = trailingslashit( $remote_source ) . 'h24/';
+    if ( $source !== $new_source ) {
+      $wp_filesystem->move( $source, $new_source, true );
+      return $new_source;
+    }
+  }
+
+  return $source;
+}
+add_filter( 'upgrader_source_selection', 'h24_upgrader_source_selection', 10, 4 );
+
 // 1. Remove Dashicons CSS from the frontend, except for users who can update the core
 function rw_remove_dashicons ()
 {
