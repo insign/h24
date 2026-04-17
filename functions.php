@@ -354,3 +354,22 @@ function h24_add_social_meta_tags ()
 }
 
 add_action('wp_head', 'h24_add_social_meta_tags', 5);
+
+// 16. Fix directory name when updating theme via GitHub
+function h24_upgrader_source_selection ( $source, $remote_source, $upgrader, $hook_extra = null )
+{
+  global $wp_filesystem;
+
+  if (isset($hook_extra['theme']) && $hook_extra['theme'] === 'h24' && isset($hook_extra['action']) && $hook_extra['action'] === 'update') {
+    $new_source = rtrim($remote_source, '/') . '/h24';
+
+    if (rtrim($source, '/') !== rtrim($new_source, '/')) {
+      $wp_filesystem->move($source, $new_source, true);
+      return rtrim($new_source, '/') . '/';
+    }
+  }
+
+  return $source;
+}
+
+add_filter('upgrader_source_selection', 'h24_upgrader_source_selection', 10, 4);
