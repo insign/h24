@@ -1,6 +1,13 @@
 VERSION_FILE=style.scss
 THEME_NAME=h24
 
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    SED_I := sed -i ''
+else
+    SED_I := sed -i
+endif
+
 release:
 	@echo "Incrementando versão..."
 
@@ -12,11 +19,7 @@ release:
 	patch=$$(($$patch + 1)) ; \
 	new_version="$$major.$$minor.$$patch" ; \
 	echo "Nova versão: $$new_version" ; \
-	if [ "$$(uname -s)" = "Darwin" ]; then \
-		sed -i '' "s/^Version:.*/Version:        $$new_version/" $(VERSION_FILE) ; \
-	else \
-		sed -i "s/^Version:.*/Version:        $$new_version/" $(VERSION_FILE) ; \
-	fi ; \
+	$(SED_I) "s/^Version:.*/Version:        $$new_version/" $(VERSION_FILE) ; \
 	sass style.scss style.css -s compressed ; \
 	git add . ; \
 	git commit -m "Versão $$new_version" ; \
