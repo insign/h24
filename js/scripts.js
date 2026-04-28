@@ -22,6 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             body.classList.remove('light-mode')
         }
+
+        // Sincroniza o tema com o Giscus (comentários) se o iframe estiver presente
+        const iframe = document.querySelector('iframe.giscus-frame')
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage({
+                giscus: {
+                    setConfig: {
+                        theme: visualTheme
+                    }
+                }
+            }, 'https://giscus.app')
+        }
     }
 
     // Função principal para definir o tema
