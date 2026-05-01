@@ -10,6 +10,7 @@
     </div>
   </article>
 
+<?php if (!post_password_required() && comments_open()) : ?>
 <div class="giscus"></div>
 <script>
   (function() {
@@ -40,5 +41,6 @@
     document.querySelector('.giscus').appendChild(script);
   })();
 </script>
+<?php endif; ?>
 
 <?php get_footer(); ?>
