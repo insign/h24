@@ -149,10 +149,10 @@ function h24_clear_theme_update_cache ( $upgrader_object, $options )
 // Add action to clear cache after the update process is complete
 add_action('upgrader_process_complete', 'h24_clear_theme_update_cache', 10, 2);
 
-// 1. Remove Dashicons CSS from the frontend, except for users who can update the core
+// 1. Remove Dashicons CSS from the frontend, except when the admin bar is showing
 function rw_remove_dashicons ()
 {
-  if (!current_user_can('update_core')) {
+  if (!is_admin_bar_showing()) {
     wp_deregister_style('dashicons');
   }
 }
