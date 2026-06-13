@@ -39,7 +39,7 @@
   <?php endwhile ?>
 
   <?php if ($GLOBALS[ 'wp_query' ]->max_num_pages > 1) : ?>
-      <div class="pagination"><?= the_posts_pagination() ?></div>
+      <div class="pagination"><?= get_the_posts_pagination() ?></div>
   <?php endif ?>
 
 <?php else : ?>
