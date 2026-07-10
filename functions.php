@@ -222,14 +222,19 @@ function rw_disable_json_api ()
   remove_action('wp_head', 'wp_oembed_add_host_js');
   remove_action('template_redirect', 'rest_output_link_header', 11, 0);
   
-  // Disable the REST API
-  add_filter('json_enabled', '__return_false');
-  add_filter('json_jsonp_enabled', '__return_false');
-  add_filter('rest_enabled', '__return_false');
-  add_filter('rest_jsonp_enabled', '__return_false');
+  // Restrict REST API to authenticated users
+  add_filter('rest_authentication_errors', function( $result ) {
+    if ( ! empty( $result ) ) {
+      return $result;
+    }
+    if ( ! is_user_logged_in() ) {
+      return new WP_Error( 'rest_not_logged_in', 'You are not currently logged in.', array( 'status' => 401 ) );
+    }
+    return $result;
+  });
 }
 
-add_action('after_setup_theme', 'rw_disable_json_api');
+add_action('init', 'rw_disable_json_api');
 
 // 7. Remove canonical link
 remove_action('embed_head', 'rel_canonical');
