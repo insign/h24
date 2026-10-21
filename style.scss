@@ -4,7 +4,7 @@ Theme URI:      https://github.com/insign/h24
 Author:         Hélio <open@helio.me>
 Author URI:     https://helio.me
 Description:    WP theme for helio.me for 2025
-Version:        2025.5.3
+Version:        2025.5.4
 License:        WTFPL
 License URI:    http://www.wtfpl.net
 Text Domain:    h24
@@ -259,7 +259,7 @@ nav {
 
       // Adiciona aspas de abertura antes do conteúdo do PRIMEIRO parágrafo
       p:first-of-type::before {
-        content:       "“"; // Aspas duplas de abertura
+        content:       open-quote; // Aspas de abertura (keyword CSS: minificadores convertem caracteres em entidades HTML)
         font-size:     1.8em; // Tamanho maior para as aspas
         color:         $color-blue; // Cor azul (modo escuro)
         position:      absolute; // Posicionamento absoluto relativo ao <p>
@@ -270,7 +270,7 @@ nav {
 
       // Adiciona aspas de fechamento depois do conteúdo do ÚLTIMO parágrafo
       p:last-of-type::after {
-        content:       "”"; // Aspas duplas de fechamento
+        content:       close-quote; // Aspas de fechamento (keyword CSS: minificadores convertem caracteres em entidades HTML)
         font-size:     1.8em; // Tamanho maior para as aspas
         color:         $color-blue; // Cor azul (modo escuro)
         margin-left:   0.1em; // Pequeno espaço antes da aspa final
