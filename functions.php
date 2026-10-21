@@ -360,3 +360,22 @@ function h24_upgrader_source_selection ( $source, $remote_source, $upgrader, $ho
 }
 
 add_filter('upgrader_source_selection', 'h24_upgrader_source_selection', 10, 4);
+
+// 17. Convert empty paragraphs (e.g. a line with only &nbsp;) into a real <br>
+// Block content skips wpautop(), so blank lines are not converted by WordPress.
+function h24_empty_paragraphs_to_br ( $content )
+{
+  if (is_admin()) {
+    return $content;
+  }
+  
+  // Keeps paragraphs with an id (in-page anchors), raw UTF-8 NBSP and numeric entities.
+  $empty_paragraph = '~<p(?![^>]*\sid\s*=)(?:\s[^>]*)?>(?:\s|&nbsp;|&#0*160;|&#x0*a0;|\xC2\xA0|<br\s*/?>)*</p>~i';
+  
+  $filtered = preg_replace($empty_paragraph, '<br />', $content);
+  
+  // preg_replace() returns null on a PCRE failure; never blank the post.
+  return NULL === $filtered ? $content : $filtered;
+}
+
+add_filter('the_content', 'h24_empty_paragraphs_to_br', 20);
