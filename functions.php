@@ -29,9 +29,6 @@ add_action('after_setup_theme', 'h24_setup');
 // Function to enqueue styles and scripts
 function h24_scripts ()
 {
-  // Enqueue Google Fonts
-  wp_enqueue_style('h24-google-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap', [], NULL);
-
   // Enqueue the main theme stylesheet
   wp_enqueue_style('h24-style', get_stylesheet_uri(), [], wp_get_theme()->get('Version'));
   
@@ -45,20 +42,6 @@ function h24_scripts ()
 
 add_action('wp_enqueue_scripts', 'h24_scripts');
 
-function h24_resource_hints ( $urls, $relation_type )
-{
-  if ('preconnect' === $relation_type) {
-    $urls[] = 'https://fonts.googleapis.com';
-    $urls[] = [
-      'href'        => 'https://fonts.gstatic.com',
-      'crossorigin' => 'anonymous',
-    ];
-  }
-
-  return $urls;
-}
-
-add_filter('wp_resource_hints', 'h24_resource_hints', 10, 2);
 
 // Function to check for automatic theme updates via GitHub
 function h24_theme_update ( $transient )
@@ -379,3 +362,41 @@ function h24_empty_paragraphs_to_br ( $content )
 }
 
 add_filter('the_content', 'h24_empty_paragraphs_to_br', 20);
+
+// 18. Fontes locais (self-hosted)
+// As regras @font-face usam URL absoluto porque o CSS do tema pode ser inline
+// ou combined pelo WP-Optimize, o que quebraria caminhos relativos.
+function h24_font_url ( $file )
+{
+  // O parâmetro ver invalida o cache do navegador/CDN quando a fonte muda.
+  // A versão vem do template (pai), que é quem serve os arquivos de fonte.
+  return get_template_directory_uri() . '/fonts/' . $file . '?ver=' . rawurlencode(wp_get_theme(get_template())->get('Version'));
+}
+
+function h24_print_font_faces ()
+{
+  $latin = 'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD';
+  $latin_ext = 'U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF';
+  
+  $faces = [
+    ['nunito-sans-latin-wght-normal.woff2',     'normal', $latin],
+    ['nunito-sans-latin-ext-wght-normal.woff2', 'normal', $latin_ext],
+    ['nunito-sans-latin-wght-italic.woff2',     'italic', $latin],
+    ['nunito-sans-latin-ext-wght-italic.woff2', 'italic', $latin_ext],
+  ];
+  
+  $css = '';
+  
+  foreach ($faces as $face) {
+    $css .= sprintf(
+      "@font-face{font-family:'Nunito Sans';font-style:%s;font-display:swap;font-weight:200 1000;src:url('%s') format('woff2');unicode-range:%s}\n",
+      $face[1],
+      esc_url(h24_font_url($face[0])),
+      $face[2]
+    );
+  }
+  
+  echo '<style id="h24-fonts">' . $css . '</style>' . "\n";
+}
+
+add_action('wp_head', 'h24_print_font_faces', 1);

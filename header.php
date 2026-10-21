@@ -4,6 +4,8 @@
   <meta charset="<?php bloginfo('charset') ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
+  <link rel="preload" href="<?= esc_url(h24_font_url('nunito-sans-latin-wght-normal.woff2')) ?>" as="font" type="font/woff2" crossorigin>
+  
   <?php wp_head() ?>
   <style>
     .theme-icon {

@@ -4,7 +4,7 @@ Theme URI:      https://github.com/insign/h24
 Author:         Hélio <open@helio.me>
 Author URI:     https://helio.me
 Description:    WP theme for helio.me for 2025
-Version:        2025.5.1
+Version:        2025.5.2
 License:        WTFPL
 License URI:    http://www.wtfpl.net
 Text Domain:    h24
@@ -36,7 +36,7 @@ $breakpoint-small:  768px;
 $breakpoint-xsmall: 450px;
 
 /* Fonte */
-$font-family:       'Open Sans', sans-serif;
+$font-family:       'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 $font-family-serif: Georgia, Times, 'Times New Roman', serif; // Fonte serifada para blockquotes
 
 /* ========================================
@@ -85,7 +85,6 @@ body {
   font-optical-sizing:     auto;
   font-weight:             350;
   font-style:              normal;
-  font-variation-settings: 'wdth' 100;
   font-size:               1.2rem;
   background-color:        $color-bg-default; // Fundo escuro por padrão
   color:                   $color-text-default; // Texto claro por padrão
